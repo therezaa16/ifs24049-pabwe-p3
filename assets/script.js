@@ -17,6 +17,21 @@
 "use strict";
 
 /* =========================================================
+   0. IKON (inline SVG, pengganti Tabler Icons webfont CDN
+   supaya tidak ada font/CSS pihak ketiga yang berat & unused)
+   ========================================================= */
+const ICON = {
+  pencil:
+    '<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l4-1 11-11-3-3L5 16l-1 4z"/><line x1="14.5" y1="5.5" x2="17.5" y2="8.5"/></svg>',
+  trash:
+    '<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><path d="M6 7v13a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7"/><path d="M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>',
+  externalLink:
+    '<svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><line x1="20" y1="4" x2="10" y2="14"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>',
+  arrowRight:
+    '<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="12" x2="18" y2="12"/><polyline points="12,6 18,12 12,18"/></svg>',
+};
+
+/* =========================================================
    1. UTIL
    ========================================================= */
 
@@ -259,14 +274,14 @@ function buildExpenseRow(tx) {
       </div>
     </div>
     <div class="flex items-center gap-3 shrink-0">
-      <span class="font-display font-bold text-sm ${isIncome ? "text-emerald-600" : "text-rose-600"}">
+      <span class="font-display font-bold text-sm ${isIncome ? "text-[#047857]" : "text-rose-600"}">
         ${isIncome ? "+" : "-"}${formatRupiah(tx.amount)}
       </span>
       <button type="button" data-action="edit" class="text-slate-400 hover:text-brand" aria-label="Ubah transaksi">
-        <i class="ti ti-pencil"></i>
+        ${ICON.pencil}
       </button>
       <button type="button" data-action="delete" class="text-slate-400 hover:text-rose-600" aria-label="Hapus transaksi">
-        <i class="ti ti-trash"></i>
+        ${ICON.trash}
       </button>
     </div>
   `;
@@ -450,15 +465,15 @@ function buildBookmarkCard(bm) {
     <div class="flex items-start justify-between gap-2">
       <a href="${escapeHTML(bm.url)}" target="_blank" rel="noopener noreferrer"
          class="font-semibold text-sm text-slate-800 hover:text-brand flex items-center gap-1.5 min-w-0">
-        <i class="ti ti-external-link shrink-0"></i>
+        ${ICON.externalLink}
         <span class="truncate">${escapeHTML(bm.title)}</span>
       </a>
       <div class="flex items-center gap-2 shrink-0">
         <button type="button" data-action="edit" class="text-slate-400 hover:text-brand" aria-label="Ubah bookmark">
-          <i class="ti ti-pencil"></i>
+          ${ICON.pencil}
         </button>
         <button type="button" data-action="delete" class="text-slate-400 hover:text-rose-600" aria-label="Hapus bookmark">
-          <i class="ti ti-trash"></i>
+          ${ICON.trash}
         </button>
       </div>
     </div>
@@ -662,7 +677,7 @@ function renderQuizQuestion() {
   nextBtn.classList.add("bg-slate-300", "text-slate-500", "cursor-not-allowed");
   nextBtn.classList.remove("bg-brand", "hover:bg-brand-dark", "text-white");
   nextBtn.textContent = quizState.currentIndex === quizQuestions.length - 1 ? "Lihat Hasil" : "Lanjut";
-  nextBtn.innerHTML += ' <i class="ti ti-arrow-right"></i>';
+  nextBtn.innerHTML += " " + ICON.arrowRight;
 
   const optionsContainer = qs("#quiz-options");
   optionsContainer.innerHTML = "";
